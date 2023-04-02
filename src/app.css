@@ -1,0 +1,42 @@
+:root {
+  --yellow: #f4d530;
+  --red: #bf5846;
+  --green: #00be9e;
+  --black: #4c4637;
+  --white: #fdf9f0;
+  --light-gray: #d2cdc3;
+  --gray: #aea99e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+input:focus {
+  outline: 0;
+}
+
+button:hover,
+button:focus {
+  background: #0053ba;
+}
+
+button:focus {
+  outline: none;
+  outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
+body {
+  background-color: var(--gray);
+}
