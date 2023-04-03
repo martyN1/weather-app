@@ -14,7 +14,7 @@
   onMount(async () => {
     let searchString = null;
 
-    if (get(favorites)) {
+    if (get(favorites).length !== 0) {
       weatherList.set(await fetchMultipleForecasts(get(favorites)))
     } else {
       searchString = await getPositionString()
