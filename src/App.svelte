@@ -1,15 +1,37 @@
 <script lang="ts">
+  import {onMount} from "svelte";
+  import {getWeatherForecast} from "./services/WeatherAPI";
+  import {getPositionString} from "./services/GeolocationService";
+  import WeatherCard from "./components/WeatherCard.svelte";
+  import SearchBar from "./components/ActionsBar.svelte";
+  import FavoritesManagementCard from "./components/FavoritesManagementCard.svelte";
+  import {currentWeather, weatherList} from "./stores/weatherStore";
+  import {get} from "svelte/store";
+  import {favorites} from "./stores/favoritesStore";
+  import {fetchMultipleForecasts} from "./services/WeatherService";
+  import {mode} from "./stores/appStore";
 
+  onMount(async () => {
+    let searchString = null;
+
+    if (get(favorites)) {
+      weatherList.set(await fetchMultipleForecasts(get(favorites)))
+    } else {
+      searchString = await getPositionString()
+      weatherList.set([await getWeatherForecast(searchString)])
+    }
+  })
 </script>
 
+<img class="logo" src="logo.png" alt=""/>
+
 <div class="wrapper">
-  <header>
-    <img class="logo" src="logo.png" alt=""/>
-  </header>
-
-  <section>
-
-  </section>
+  <SearchBar/>
+  {#if $mode === 'favorites'}
+  <FavoritesManagementCard/>
+  {:else}
+  <WeatherCard weather={$currentWeather}/>
+  {/if}
 </div>
 
 <footer>
@@ -20,13 +42,12 @@
   .wrapper {
     max-width: 600px;
     margin: 40px auto 16px;
-    height: calc(100% - 92px);
     border-radius: 32px;
     background-color: var(--light-gray);
-    padding: 12px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 24px;
   }
 
   header {
@@ -40,13 +61,6 @@
     top: 16px;
     width: 48px;
     height: 54px;
-  }
-
-  h1 {
-    font-family: 'Lilita One', cursive;
-    flex-grow: 1;
-    text-align: center;
-    color: var(--black);
   }
 
   section {
@@ -64,7 +78,12 @@
   }
 
   @media (pointer: coarse) {
+    .logo {
+      display: none;
+    }
+
     .wrapper {
+      padding: 16px;
       border-radius: 0;
       margin: 0 auto;
       height: 100%;

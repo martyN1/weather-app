@@ -6,12 +6,18 @@
   --white: #fdf9f0;
   --light-gray: #d2cdc3;
   --gray: #aea99e;
+  --dark-gray: #6B6658
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+}
+
+ul {
+  list-style-type: none;
 }
 
 html, body, #app {

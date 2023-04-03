@@ -1,0 +1,105 @@
+<script>
+import {SearchIcon, XIcon, HeartIcon} from "svelte-feather-icons";
+import {mode, searchValue} from "../stores/appStore.ts";
+import {getWeatherForecast} from "../services/WeatherAPI.ts";
+import {addWeatherAndSelectIt} from "../services/WeatherService.ts";
+import {favorites} from "../stores/favoritesStore.ts";
+
+async function handleSubmit() {
+    if ($searchValue !== '') {
+        addWeatherAndSelectIt(await getWeatherForecast($searchValue))
+        searchValue.set('')
+    }
+
+    mode.set('initial')
+}
+
+async function handleClickSearchButton() {
+    if ($mode === 'initial') {
+        mode.set('search')
+    } else {
+        await handleSubmit()
+    }
+}
+
+</script>
+
+<div class="searchBar">
+    {#if $mode === 'search'}
+        <form on:submit|preventDefault={handleSubmit}>
+            <input type="text" name="search" bind:value={$searchValue}/>
+        </form>
+    {/if}
+    {#if $mode === 'initial' || $mode === 'search' && $searchValue !== ''}
+    <button
+        class="searchButton"
+        on:click={handleClickSearchButton}
+        >
+        <SearchIcon size="24"/>
+    </button>
+    {:else}
+        <button
+                class="cancelButton"
+                on:click={() => mode.set('initial')}
+        >
+            <XIcon size="24"/>
+        </button>
+    {/if}
+    {#if $favorites.length !== 0 && $mode !== 'favorites'}
+        <button
+                class="favoritesButton"
+                on:click={() => mode.set('favorites')}
+        >
+            <HeartIcon size="24"/>
+        </button>
+    {/if}
+</div>
+
+<style>
+    .searchBar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px
+    }
+
+    form {
+        flex-grow: 1;
+    }
+
+    input {
+        height: 44px;
+        width: 100%;
+        border-radius: 100px;
+        border: 2px solid var(--black);
+        padding: 4px 24px;
+        background-color: var(--white);
+        color: var(--black);
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    button {
+        min-width: 48px;
+        min-height: 48px;
+        border: 2px solid var(--black);
+        border-radius: 999px;
+        cursor: pointer;
+        background-color: var(--green);
+    }
+
+    .searchButton {
+        background-color: var(--green);
+    }
+
+    .cancelButton {
+        background-color: var(--gray);
+    }
+
+    .favoritesButton {
+        background-color: var(--red);
+    }
+
+</style>
