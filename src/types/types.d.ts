@@ -1,1 +1,1 @@
-export type Mode = 'search' | 'favorites'
+export type Mode = 'search' | 'favorites';

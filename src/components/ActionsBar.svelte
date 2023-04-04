@@ -1,47 +1,36 @@
 <script>
-import {SearchIcon, XIcon, HeartIcon} from "svelte-feather-icons";
-import {mode, searchValue} from "../stores/appStore.ts";
-import {getWeatherForecast} from "../services/WeatherAPI.ts";
-import {addWeatherAndSelectIt} from "../services/WeatherService.ts";
-import {favorites} from "../stores/favoritesStore.ts";
+	import { SearchIcon, XIcon, HeartIcon } from 'svelte-feather-icons';
+	import { mode, searchValue } from '../stores/appStore.ts';
+	import { getWeatherForecast } from '../services/WeatherAPI.ts';
+	import { addWeatherAndSelectIt } from '../services/WeatherService.ts';
+	import { favorites } from '../stores/favoritesStore.ts';
 
-async function handleSubmit() {
-    if ($searchValue !== '') {
-        addWeatherAndSelectIt(await getWeatherForecast($searchValue))
-        searchValue.set('')
-    }
-}
-
+	async function handleSubmit () {
+		if ($searchValue !== '') {
+			addWeatherAndSelectIt(await getWeatherForecast($searchValue));
+			searchValue.set('');
+		}
+	}
 </script>
 
-<div class="actionBar">
-    {#if $mode === 'search'}
-        <form on:submit|preventDefault={handleSubmit}>
-            <input autofocus type="text" name="search" placeholder="Location" bind:value={$searchValue}/>
-        </form>
-        <button
-            class="searchButton"
-            on:click={handleSubmit}
-            disabled="{$searchValue === ''}"
-            >
-            <SearchIcon size="24"/>
-        </button>
-        {#if $favorites.length !== 0}
-            <button
-                    class="favoritesButton"
-                    on:click={() => mode.set('favorites')}
-            >
-                <HeartIcon size="24"/>
-            </button>
-        {/if}
-    {:else if $mode === 'favorites'}
-        <button
-                class="cancelButton"
-                on:click={() => mode.set('search')}
-        >
-            <XIcon size="24"/>
-        </button>
-    {/if}
+<div class='actionBar'>
+	{#if $mode === 'search'}
+		<form on:submit|preventDefault={handleSubmit}>
+			<input autofocus type='text' name='search' placeholder='Location' bind:value={$searchValue} />
+		</form>
+		<button class='searchButton' on:click={handleSubmit} disabled={$searchValue === ''}>
+			<SearchIcon size='24' />
+		</button>
+		{#if $favorites.length !== 0}
+			<button class='favoritesButton' on:click={() => mode.set('favorites')}>
+				<HeartIcon size='24' />
+			</button>
+		{/if}
+	{:else if $mode === 'favorites'}
+		<button class='cancelButton' on:click={() => mode.set('search')}>
+			<XIcon size='24' />
+		</button>
+	{/if}
 </div>
 
 <style>
@@ -50,7 +39,7 @@ async function handleSubmit() {
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
-        gap: 8px
+        gap: 8px;
     }
 
     form {
@@ -94,5 +83,4 @@ async function handleSubmit() {
     .favoritesButton {
         background-color: var(--red);
     }
-
 </style>
