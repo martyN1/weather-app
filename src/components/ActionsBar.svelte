@@ -24,10 +24,10 @@ async function handleClickSearchButton() {
 
 </script>
 
-<div class="searchBar">
+<div class="actionBar">
     {#if $mode === 'search'}
         <form on:submit|preventDefault={handleSubmit}>
-            <input type="text" name="search" placeholder="Location" bind:value={$searchValue}/>
+            <input autofocus type="text" name="search" placeholder="Location" bind:value={$searchValue}/>
         </form>
     {/if}
     {#if $mode === 'initial' || $mode === 'search' && $searchValue !== ''}
@@ -56,7 +56,7 @@ async function handleClickSearchButton() {
 </div>
 
 <style>
-    .searchBar {
+    .actionBar {
         display: flex;
         flex-direction: row;
         align-items: center;
