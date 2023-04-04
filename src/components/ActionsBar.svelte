@@ -27,7 +27,7 @@ async function handleClickSearchButton() {
 <div class="searchBar">
     {#if $mode === 'search'}
         <form on:submit|preventDefault={handleSubmit}>
-            <input type="text" name="search" bind:value={$searchValue}/>
+            <input type="text" name="search" placeholder="Location" bind:value={$searchValue}/>
         </form>
     {/if}
     {#if $mode === 'initial' || $mode === 'search' && $searchValue !== ''}
