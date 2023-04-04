@@ -147,7 +147,7 @@
     }
 
     .conditionAndTemperature {
-        margin: 28px auto 0;
+        margin: 0 auto;
         display: flex;
         flex-direction: row;
         align-items: center;
