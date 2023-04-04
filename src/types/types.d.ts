@@ -1,1 +1,1 @@
-export type Mode = 'initial' | 'search' | 'favorites'
+export type Mode = 'search' | 'favorites'

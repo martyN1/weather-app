@@ -10,16 +10,6 @@ async function handleSubmit() {
         addWeatherAndSelectIt(await getWeatherForecast($searchValue))
         searchValue.set('')
     }
-
-    mode.set('initial')
-}
-
-async function handleClickSearchButton() {
-    if ($mode === 'initial') {
-        mode.set('search')
-    } else {
-        await handleSubmit()
-    }
 }
 
 </script>
@@ -30,17 +20,18 @@ async function handleClickSearchButton() {
             <input autofocus type="text" name="search" placeholder="Location" bind:value={$searchValue}/>
         </form>
     {/if}
-    {#if $mode === 'initial' || $mode === 'search' && $searchValue !== ''}
+    {#if $mode === 'search'}
     <button
         class="searchButton"
-        on:click={handleClickSearchButton}
+        on:click={handleSubmit}
+        disabled="{$searchValue === ''}"
         >
         <SearchIcon size="24"/>
     </button>
     {:else}
         <button
                 class="cancelButton"
-                on:click={() => mode.set('initial')}
+                on:click={() => mode.set('search')}
         >
             <XIcon size="24"/>
         </button>
@@ -92,6 +83,10 @@ async function handleClickSearchButton() {
 
     .searchButton {
         background-color: var(--green);
+    }
+
+    .searchButton:disabled {
+        background-color: var(--gray);
     }
 
     .cancelButton {
