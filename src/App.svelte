@@ -49,6 +49,7 @@
 	.spinner {
 		margin: 0 auto;
 	}
+
 	.wrapper {
 		max-width: 600px;
 		margin: 40px auto 16px;
@@ -60,24 +61,12 @@
 		gap: 24px;
 	}
 
-	header {
-		margin-top: 16px;
-		margin-bottom: 24px;
-	}
-
 	.logo {
 		position: absolute;
 		left: 16px;
 		top: 16px;
 		width: 48px;
 		height: 54px;
-	}
-
-	section {
-		height: 100%;
-		display: flex;
-		flex-direction: column-reverse;
-		justify-content: space-between;
 	}
 
 	footer {
@@ -97,10 +86,6 @@
 			border-radius: 0;
 			margin: 0 auto;
 			height: 100%;
-		}
-
-		section {
-			flex-direction: column;
 		}
 
 		footer {

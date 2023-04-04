@@ -3,7 +3,7 @@ import type { WeatherForecast } from '../types/weather.types';
 const API_KEY = '20d9a5b5afa2428387d171837230204';
 
 export async function getWeatherForecast(
-	positionString: String | null = 'auto:ip'
+	positionString: string | null = 'auto:ip'
 ): Promise<WeatherForecast> {
 	const q = positionString || 'auto:ip';
 	const response = await fetch(

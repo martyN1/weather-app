@@ -126,6 +126,7 @@
 	}
 
 	.city {
+		color: var(--black);
 		font-weight: 700;
 		text-align: center;
 		font-size: 28px;
@@ -148,6 +149,7 @@
 	}
 
 	.conditionAndTemperature {
+		color: var(--black);
 		margin: 0 auto;
 		display: flex;
 		flex-direction: row;
