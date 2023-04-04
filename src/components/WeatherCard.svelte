@@ -1,7 +1,7 @@
 <script lang="ts">
     import type {WeatherForecast} from "../types/weather.types";
     import FavoriteButton from "./FavoriteButton.svelte";
-    import {addFavorite, isInFavorites, removeFavorite} from "../services/FavoritesService";
+    import {addFavorite, removeFavorite} from "../services/FavoritesService";
     import {favorites} from "../stores/favoritesStore";
     import PreviousButton from "./PreviousButton.svelte";
     import {currentWeatherIndex, weatherListLastIndex} from "../stores/weatherStore.js";
@@ -66,9 +66,6 @@
                 </div>
             {/each}
         </div>
-
-
-
 
     </div>
 {/if}

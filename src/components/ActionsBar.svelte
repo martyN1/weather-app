@@ -19,29 +19,27 @@ async function handleSubmit() {
         <form on:submit|preventDefault={handleSubmit}>
             <input autofocus type="text" name="search" placeholder="Location" bind:value={$searchValue}/>
         </form>
-    {/if}
-    {#if $mode === 'search'}
-    <button
-        class="searchButton"
-        on:click={handleSubmit}
-        disabled="{$searchValue === ''}"
-        >
-        <SearchIcon size="24"/>
-    </button>
-    {:else}
+        <button
+            class="searchButton"
+            on:click={handleSubmit}
+            disabled="{$searchValue === ''}"
+            >
+            <SearchIcon size="24"/>
+        </button>
+        {#if $favorites.length !== 0}
+            <button
+                    class="favoritesButton"
+                    on:click={() => mode.set('favorites')}
+            >
+                <HeartIcon size="24"/>
+            </button>
+        {/if}
+    {:else if $mode === 'favorites'}
         <button
                 class="cancelButton"
                 on:click={() => mode.set('search')}
         >
             <XIcon size="24"/>
-        </button>
-    {/if}
-    {#if $favorites.length !== 0 && $mode !== 'favorites'}
-        <button
-                class="favoritesButton"
-                on:click={() => mode.set('favorites')}
-        >
-            <HeartIcon size="24"/>
         </button>
     {/if}
 </div>
